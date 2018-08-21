@@ -8,7 +8,8 @@
 
     <link rel="stylesheet" type="text/css" href="main.css">
 
-    <script src="./node_modules/web3/dist/web3.min.js"></script>
+    <script src="C:\Users\Asus\Desktop\blockchain\eth-proj\node_modules\web3\dist\web3.min.js"></script>
+    <!-- C:\Users\Asus\Desktop\blockchain\eth-proj\node_modules\web3 -->
 
 </head>
 <body>
@@ -32,7 +33,65 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 
     <script>
-       // Our future code here..
+    	var options = {
+    		timeout: 20000, // milliseconds,
+    		headers: [{name: 'Access-Control-Allow-Origin', value: '*'}]};
+
+    </script>
+
+    <script>
+
+       if (typeof web3 !== 'undefined') {
+            web3 = new Web3(web3.currentProvider);
+        } else {
+            // set the provider you want from Web3.providers
+            web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8501", options));
+        }
+
+        web3.eth.defaultAccount = web3.eth.accounts[0];
+
+        var CoursetroContract = web3.eth.contract([
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_fName",
+				"type": "string"
+			},
+			{
+				"name": "_age",
+				"type": "uint256"
+			}
+		],
+		"name": "setInstructor",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getInstructor",
+		"outputs": [
+			{
+				"name": "",
+				"type": "string"
+			},
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+		}
+	])
+
+        var Coursetro = CoursetroContract.at('0xf6434d2e80de259a0abb616707e28bdb6a184cb0');
+
+        console.log(Coursetro);
     </script>
 
 </body>
