@@ -92,6 +92,19 @@
         var Coursetro = CoursetroContract.at('0xf6434d2e80de259a0abb616707e28bdb6a184cb0');
 
         console.log(Coursetro);
+
+        Coursetro.getInstructor(function(error, result) {
+        	if (!error) {
+        		$("#instructor").html(result[0]+' ('+result[1]+' years old)');
+        	} 
+        	else
+        		console.log(error);
+        });
+
+        $("button").click(function() {
+        	Coursetro.setInstructor($("#name").val(), $("#age").val());
+        });
+
     </script>
 
 </body>
