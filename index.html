@@ -54,6 +54,23 @@
 
         var CoursetroContract = web3.eth.contract([
 	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "name",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"name": "age",
+				"type": "uint256"
+			}
+		],
+		"name": "Instructor",
+		"type": "event"
+	},
+	{
 		"constant": false,
 		"inputs": [
 			{
@@ -72,6 +89,12 @@
 		"type": "function"
 	},
 	{
+		"inputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
 		"constant": true,
 		"inputs": [],
 		"name": "getInstructor",
@@ -88,27 +111,10 @@
 		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"name": "name",
-				"type": "string"
-			},
-			{
-				"indexed": false,
-				"name": "age",
-				"type": "uint256"
-			}
-		],
-		"name": "Instructor",
-		"type": "event"
 	}
 ])
 
-        var Coursetro = CoursetroContract.at('0x4d69ed0964f1c68749c1ae55ef20dc9306a3f18c');
+        var Coursetro = CoursetroContract.at('0x8375845e351f13fcbd21547c7fa2f5089ba3bf94');
 
         console.log(Coursetro);
 
@@ -126,7 +132,12 @@
 
         $("button").click(function() {
         	$("#loader").show();
-        	Coursetro.setInstructor($("#name").val(), $("#age").val());
+        	Coursetro.setInstructor($("#name").val(), $("#age").val(), (err, res) => {
+				if (err) {
+					$("#loader").hide();
+					console.log("Access denied")
+				}
+			});
         });
 
     </script>
